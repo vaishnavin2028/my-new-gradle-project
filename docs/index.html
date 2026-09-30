@@ -1,0 +1,481 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beginner Web Lab</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            color: #222;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 900px;
+            margin: 30px auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: #2563eb;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 25px;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .tab {
+            flex: 1;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            background: #ddd;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .tab.active {
+            background: #2563eb;
+            color: white;
+        }
+
+        .lesson {
+            display: none;
+        }
+
+        .lesson.active {
+            display: block;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 12px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        pre {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+        }
+
+        textarea,
+        input,
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 7px;
+            font-size: 15px;
+        }
+
+        textarea {
+            height: 160px;
+            font-family: monospace;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        .run {
+            margin-top: 12px;
+            padding: 12px 18px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 7px;
+        }
+
+        .run:hover {
+            background: #1d4ed8;
+        }
+
+        .result {
+            padding: 20px;
+            background: #f1f5f9;
+            border-radius: 8px;
+            min-height: 80px;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .navigation button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 7px;
+            background: #2563eb;
+            color: white;
+        }
+
+        .navigation button:disabled {
+            background: #aaa;
+            cursor: not-allowed;
+        }
+
+        .progress {
+            text-align: center;
+            margin: 15px;
+            color: #666;
+        }
+
+        @media (max-width: 650px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tabs {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Beginner Web Lab</h1>
+    <p class="subtitle">
+        Learn HTML, CSS and JavaScript by experimenting.
+    </p>
+
+    <!-- Tabs -->
+    <div class="tabs">
+        <button class="tab active" onclick="showLesson(0)">
+            HTML
+        </button>
+
+        <button class="tab" onclick="showLesson(1)">
+            CSS
+        </button>
+
+        <button class="tab" onclick="showLesson(2)">
+            JavaScript
+        </button>
+    </div>
+
+    <div class="progress">
+        Lesson <span id="progress">1</span> / 3
+    </div>
+
+    <!-- HTML LESSON -->
+    <section class="lesson active">
+
+        <div class="grid">
+
+            <div class="card">
+                <h2>1. HTML = Structure</h2>
+
+                <p>
+                    HTML tells the browser what content should appear
+                    on the webpage.
+                </p>
+
+                <pre>&lt;h1&gt;Hello World&lt;/h1&gt;
+&lt;p&gt;I am learning HTML.&lt;/p&gt;</pre>
+            </div>
+
+            <div class="card">
+
+                <h2>Try It</h2>
+
+                <textarea id="htmlCode">&lt;h1&gt;Hello World&lt;/h1&gt;
+&lt;p&gt;I am learning HTML.&lt;/p&gt;</textarea>
+
+                <button class="run" onclick="runHTML()">
+                    Run HTML
+                </button>
+
+            </div>
+
+        </div>
+
+        <div class="card">
+
+            <h2>Live Result</h2>
+
+            <div id="htmlResult" class="result">
+                <h1>Hello World</h1>
+                <p>I am learning HTML.</p>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- CSS LESSON -->
+    <section class="lesson">
+
+        <div class="grid">
+
+            <div class="card">
+
+                <h2>2. CSS = Appearance</h2>
+
+                <p>
+                    CSS controls how your webpage looks.
+                </p>
+
+                <pre>color: blue;
+font-size: 24px;
+text-align: center;</pre>
+
+            </div>
+
+            <div class="card">
+
+                <h2>Try CSS</h2>
+
+                <label>Choose Color</label>
+
+                <select id="color">
+                    <option value="blue">Blue</option>
+                    <option value="green">Green</option>
+                    <option value="red">Red</option>
+                    <option value="purple">Purple</option>
+                </select>
+
+                <br><br>
+
+                <label>Font Size</label>
+
+                <input
+                        type="range"
+                        id="fontSize"
+                        min="16"
+                        max="50"
+                        value="24"
+                >
+
+                <button class="run" onclick="runCSS()">
+                    Apply CSS
+                </button>
+
+            </div>
+
+        </div>
+
+        <div class="card">
+
+            <h2>Live Result</h2>
+
+            <div id="cssResult" class="result"
+                 style="text-align:center;font-size:24px;">
+                Change my style!
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- JAVASCRIPT LESSON -->
+    <section class="lesson">
+
+        <div class="grid">
+
+            <div class="card">
+
+                <h2>3. JavaScript = Behavior</h2>
+
+                <p>
+                    JavaScript makes webpages interactive.
+                </p>
+
+                <pre>button.addEventListener("click", () => {
+    message.textContent = "Hello!";
+});</pre>
+
+            </div>
+
+            <div class="card">
+
+                <h2>Try JavaScript</h2>
+
+                <input
+                        type="text"
+                        id="name"
+                        placeholder="Enter your name"
+                >
+
+                <button class="run" onclick="sayHello()">
+                    Say Hello
+                </button>
+
+                <p id="message">
+                    Your message will appear here.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- NAVIGATION -->
+
+    <div class="navigation">
+
+        <button onclick="previousLesson()" id="previous">
+            ← Previous
+        </button>
+
+        <button onclick="nextLesson()" id="next">
+            Next →
+        </button>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    let currentLesson = 0;
+
+    const lessons = document.querySelectorAll(".lesson");
+    const tabs = document.querySelectorAll(".tab");
+
+    function showLesson(index) {
+
+        currentLesson = index;
+
+        lessons.forEach((lesson, i) => {
+            lesson.classList.toggle(
+                "active",
+                i === index
+            );
+        });
+
+        tabs.forEach((tab, i) => {
+            tab.classList.toggle(
+                "active",
+                i === index
+            );
+        });
+
+        document.getElementById("progress").textContent =
+            index + 1;
+
+        document.getElementById("previous").disabled =
+            index === 0;
+
+        document.getElementById("next").textContent =
+            index === lessons.length - 1
+                ? "Start Again"
+                : "Next →";
+    }
+
+
+    function nextLesson() {
+
+        if (currentLesson === lessons.length - 1) {
+            showLesson(0);
+        } else {
+            showLesson(currentLesson + 1);
+        }
+
+    }
+
+
+    function previousLesson() {
+
+        if (currentLesson > 0) {
+            showLesson(currentLesson - 1);
+        }
+
+    }
+
+
+    function runHTML() {
+
+        const code =
+            document.getElementById("htmlCode").value;
+
+        document.getElementById("htmlResult").innerHTML =
+            code || "<p>Please enter some HTML.</p>";
+
+    }
+
+
+    function runCSS() {
+
+        const result =
+            document.getElementById("cssResult");
+
+        const color =
+            document.getElementById("color").value;
+
+        const size =
+            document.getElementById("fontSize").value;
+
+        result.style.color = color;
+        result.style.fontSize = size + "px";
+
+    }
+
+
+    function sayHello() {
+
+        const name =
+            document.getElementById("name").value.trim();
+
+        const message =
+            document.getElementById("message");
+
+        if (name === "") {
+
+            message.textContent =
+                "Please enter your name.";
+
+        } else {
+
+            message.textContent =
+                "Hello, " + name + "! 🎉";
+
+        }
+
+    }
+
+
+    showLesson(0);
+
+</script>
+
+</body>
+</html>
+```
